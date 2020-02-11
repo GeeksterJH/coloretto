@@ -2,7 +2,7 @@ package console;
 
 import java.util.Scanner;
 
-import domein.Game;
+import domain.Game;
 
 public class DomainController {
 	public static void main(String[] args) {

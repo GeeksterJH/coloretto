@@ -1,4 +1,4 @@
-package domein;
+package domain;
 
 public class Card {
 	private Color color;
