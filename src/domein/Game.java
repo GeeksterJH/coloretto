@@ -6,27 +6,28 @@ import java.util.Scanner;
 
 public class Game {
 	private List<Player> players = new ArrayList<>();
-	
+
 	public void start() {
 		System.out.println("Aantal spelers (4 of 5): ");
 		Scanner input = new Scanner(System.in);
-		int amountOfPlayers = 0;
-		
-		while (amountOfPlayers < 4 || amountOfPlayers > 5) {
+
+		int amountOfPlayers;
+
+		do {
 			amountOfPlayers = input.nextInt();
 			switch (amountOfPlayers) {
 			case 4:
 				amountOfPlayers = 4;
 				break;
-			case 5: 
+			case 5:
 				amountOfPlayers = 5;
 				break;
 			default:
 				System.out.println("Kies tussen 4 of 5 spelers.");
 				break;
 			}
-		}
-		
+		} while (amountOfPlayers < 4 || amountOfPlayers > 5);
+
 		enterPlayerNames(amountOfPlayers);
 	}
 	
@@ -36,10 +37,6 @@ public class Game {
 			Scanner input = new Scanner(System.in);
 			String name = input.nextLine();
 			players.add(new Player(name));
-		}
-		
-		for (Player p : players) {
-			System.out.println(p.getName());
 		}
 	}
 }
