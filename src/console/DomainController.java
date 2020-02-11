@@ -2,6 +2,8 @@ package console;
 
 import java.util.Scanner;
 
+import domein.Game;
+
 public class DomainController {
 	public static void main(String[] args) {
 		boolean isRunning = true;
@@ -17,8 +19,7 @@ public class DomainController {
 			
 			switch (option) {
 			case 1:
-				// begin spel
-				System.out.println("Begin spel");
+				new Game().start();
 				break;
 			case 2:
 				// toon high scores
