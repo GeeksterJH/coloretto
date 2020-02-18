@@ -22,18 +22,4 @@ public enum Color {
 			default: return Pink;
 		}
 	}
-
-	public String toString() {
-		switch (this) {
-			case Orange: return "Orange";
-			case Blue: return "Blue";
-			case Brown: return "Brown";
-			case Yellow: return "Yellow";
-			case Grey: return "Grey";
-			case Green: return "Green";
-			case Pink: return "Pink";
-		}
-
-		return "";
-	}
 }
