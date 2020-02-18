@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class Game {
 	private List<Player> players = new ArrayList<>();
-	private List<Card> colorCards = new ArrayList<>();
+	private List<Card> deck = new ArrayList<>();
 	private int currentRound = 1;
 
 	public void start() {
@@ -32,21 +32,45 @@ public class Game {
 	private void createCards() {
 		for (int colorIndex = 0; colorIndex < Color.AMOUNT; colorIndex++) {
 			for (int cardIndex = 0; cardIndex < 9; cardIndex++) {
-				colorCards.add(new Card(Color.get(colorIndex)));
+				deck.add(new Card(Color.get(colorIndex)));
 			}
 		}
 
+		distributeCards();
+
 		shuffleDeck();
+	}
+
+	private void distributeCards() {
+		List<Integer> usedPlayers = new ArrayList<>();
+		Random rng = new Random();
+
+		for (int i = 0; i < deck.size(); i += 9) {
+			int randomIndex;
+
+			do {
+				randomIndex = rng.nextInt(players.size());
+			} while (usedPlayers.contains(randomIndex));
+
+			usedPlayers.add(randomIndex);
+
+			Card c = deck.remove(i);
+			players.get(randomIndex).giveCard(c);
+
+			if (usedPlayers.size() >= players.size()) {
+				break;
+			}
+		}
 	}
 
 	private void shuffleDeck() {
 		Random rng = new Random();
 
-		for (int i = colorCards.size() - 1; i > 0; i--) {
+		for (int i = deck.size() - 1; i > 0; i--) {
 			int randomIndex = rng.nextInt(i);
-			Card temp = colorCards.get(i);
-			colorCards.set(i, colorCards.get(randomIndex));
-			colorCards.set(randomIndex, temp);
+			Card temp = deck.get(i);
+			deck.set(i, deck.get(randomIndex));
+			deck.set(randomIndex, temp);
 		}
 	}
 
