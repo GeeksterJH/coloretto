@@ -9,7 +9,7 @@ public enum Color {
 	Green,
 	Pink;
 
-	public static final int AMOUNT = 7;
+	public static final int AMOUNT = values().length;
 
 	public static Color get(int index) {
 		switch (index) {
