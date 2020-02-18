@@ -9,7 +9,7 @@ public enum Color {
 	Green,
 	Pink;
 
-	public static final int AMOUNT = 7;
+	public static final int AMOUNT = values().length;
 
 	public static Color get(int index) {
 		switch (index) {
@@ -21,19 +21,5 @@ public enum Color {
 			case 6: return Green;
 			default: return Pink;
 		}
-	}
-
-	public String toString() {
-		switch (this) {
-			case Orange: return "Orange";
-			case Blue: return "Blue";
-			case Brown: return "Brown";
-			case Yellow: return "Yellow";
-			case Grey: return "Grey";
-			case Green: return "Green";
-			case Pink: return "Pink";
-		}
-
-		return "";
 	}
 }

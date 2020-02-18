@@ -1,8 +1,8 @@
 package ui;
 
-import java.util.Scanner;
-
 import domain.Game;
+
+import java.util.Scanner;
 
 public class ConsoleApplication {
 	public static void main(String[] args) {
