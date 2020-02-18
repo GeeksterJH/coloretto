@@ -1,10 +1,10 @@
-package console;
+package ui;
 
 import java.util.Scanner;
 
 import domain.Game;
 
-public class DomainController {
+public class ConsoleApplication {
 	public static void main(String[] args) {
 		boolean isRunning = true;
 

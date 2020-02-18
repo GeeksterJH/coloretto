@@ -13,4 +13,4 @@ run {
 	standardInput = System.in
 }
 
-mainClassName = 'console.DomainController'
+mainClassName = 'ui.ConsoleApplication'
