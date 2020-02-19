@@ -8,6 +8,7 @@ import java.util.Random;
 public class Game {
 	private List<Player> players = new ArrayList<>();
 	private List<Card> deck = new ArrayList<>();
+	private List<List<Card>> Rows;
 	private int currentRound = 1;
 
 	public void start() {
