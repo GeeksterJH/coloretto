@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
+	public boolean IsActive;
 	private String name;
 	public List<Card> cards = new ArrayList<>();
 
@@ -18,4 +19,8 @@ public class Player {
 	public void giveCard(Card c) {
 		cards.add(c);
 	}
-}
+	
+		
+	}
+	
+
