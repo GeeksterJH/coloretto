@@ -19,8 +19,6 @@ public class Player {
 	public void giveCard(Card c) {
 		cards.add(c);
 	}
-	
-		
-	}
+}
 	
 
