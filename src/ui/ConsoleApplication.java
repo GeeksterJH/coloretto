@@ -1,6 +1,7 @@
 package ui;
 
 import domain.Game;
+import domain.DomainController;
 
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ public class ConsoleApplication {
 
 			switch (option) {
 			case 1:
-				new Game().start();
+				DomainController.startGame();
 				break;
 			case 2:
 				// toon high scores
