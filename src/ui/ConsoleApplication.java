@@ -2,7 +2,7 @@ package ui;
 
 import java.util.Scanner;
 
-import domain.Game;
+import domain.DomainController;
 
 public class ConsoleApplication {
 	public static void main(String[] args) {
@@ -19,7 +19,7 @@ public class ConsoleApplication {
 
 			switch (option) {
 			case 1:
-				new Game().start();
+				DomainController.startGame();
 				break;
 			case 2:
 				// toon high scores
