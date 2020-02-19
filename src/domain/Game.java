@@ -42,25 +42,23 @@ public class Game {
 	}
 
 	private void distributeCards() {
-		List<Integer> usedPlayers = new ArrayList<>();
-		Random rng = new Random();
+		// 1. This list contains one card of each color
+		List<Card> colorCards = new ArrayList<>(Color.AMOUNT);
 
 		for (int i = 0; i < deck.size(); i += 9) {
-			int randomIndex;
-
-			do {
-				randomIndex = rng.nextInt(players.size());
-			} while (usedPlayers.contains(randomIndex));
-
-			usedPlayers.add(randomIndex);
-
-			Card c = deck.remove(i);
-			players.get(randomIndex).giveCard(c);
-
-			if (usedPlayers.size() >= players.size()) {
-				break;
-			}
+			colorCards.add(deck.remove(i));
 		}
+
+		// 2. In this loop we give each player a random card from the colorCards list
+		Random rng = new Random();
+
+		for (Player p : players) {
+			int randomColorCardIndex = rng.nextInt(colorCards.size());
+			p.giveCard(colorCards.remove(randomColorCardIndex));
+		}
+
+		// 3. We put the remaining cards back into the deck
+		deck.addAll(colorCards);
 	}
 
 	private void shuffleDeck() {
