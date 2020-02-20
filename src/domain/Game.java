@@ -2,7 +2,6 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 import java.util.Random;
 
 public class Game {
@@ -12,12 +11,17 @@ public class Game {
 
 	public void start() {
 		System.out.println("Aantal spelers (4 of 5): ");
-		Scanner input = new Scanner(System.in);
 
 		int amountOfPlayers;
 
 		do {
-			amountOfPlayers = input.nextInt();
+			try {
+				amountOfPlayers = Console.getInt();
+			} catch (NumberFormatException e) {
+				System.out.println("Geef een getal in!");
+				amountOfPlayers = 0;
+				continue;
+			}
 
 			if (amountOfPlayers < 4 || amountOfPlayers > 5) {
 				System.out.println("Kies tussen 4 of 5 spelers.");
@@ -75,8 +79,7 @@ public class Game {
 	private void enterPlayerNames(int amount) {
 		for (int i = 0; i < amount; i++) {
 			System.out.printf("Geef de naam van speler %d%n", i + 1);
-			Scanner input = new Scanner(System.in);
-			String name = input.nextLine();
+			String name = Console.getString();
 			players.add(new Player(name));
 		}
 	}
