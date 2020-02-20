@@ -9,6 +9,7 @@ public class Player {
 	public boolean IsActive;
 	private String name;
 	public List<Card> cards = new ArrayList<>();
+	public boolean getRows;
 	public List<Card> getCards(){
 		return cards;
 	}
@@ -25,13 +26,15 @@ public class Player {
 		cards.add(c);
 	}
 	public List<Card> Getcard() {
-	Scanner choice = new Scanner(System.in);
-	if (getCards) {
+		Scanner choice = new Scanner(System.in);
+		boolean Getcard = false;
+		if (Getcard) {
+			return cards;
+		} 
+		else if (getRows) {
+			return cards;
+	}
 		return cards;
-	} 
-	else if (getRow) {
-		return List<Cards> ;
-}
 		
 		
 	}}
