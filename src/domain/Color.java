@@ -12,14 +12,6 @@ public enum Color {
 	public static final int AMOUNT = values().length;
 
 	public static Color get(int index) {
-		switch (index) {
-			case 1: return Orange;
-			case 2: return Blue;
-			case 3: return Brown;
-			case 4: return Yellow;
-			case 5: return Grey;
-			case 6: return Green;
-			default: return Pink;
-		}
+		return values()[index];
 	}
 }
