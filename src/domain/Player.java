@@ -26,16 +26,18 @@ public class Player {
 	}
 
 	public int getScore() {
+		List<Card> cardsCopy = new ArrayList<>(cards);
+
 		int score = 0;
 		int amount = 0;
 		Color color;
 
-		while (!cards.isEmpty()) {
-			color = cards.get(0).getColor();
-			cards.remove(0);
+		while (!cardsCopy.isEmpty()) {
+			color = cardsCopy.get(0).getColor();
+			cardsCopy.remove(0);
 			amount++;
 
-			Iterator<Card> cardIterator = cards.iterator();
+			Iterator<Card> cardIterator = cardsCopy.iterator();
 
 			while (cardIterator.hasNext()) {
 				Card card = cardIterator.next();
