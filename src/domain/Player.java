@@ -25,7 +25,7 @@ public class Player {
 		this.cards.addAll(cards);
 	}
 
-	public int calculateScore() {
+	public int getScore() {
 		int score = 0;
 		int amount = 0;
 		Color color;
