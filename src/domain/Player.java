@@ -5,6 +5,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Player {
+	public boolean IsActive;
 	private String name;
 	private List<Card> cards = new ArrayList<>();
 

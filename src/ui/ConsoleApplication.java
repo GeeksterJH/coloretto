@@ -1,7 +1,6 @@
 package ui;
 
-import java.util.Scanner;
-
+import domain.Console;
 import domain.DomainController;
 
 public class ConsoleApplication {
@@ -14,24 +13,29 @@ public class ConsoleApplication {
 			System.out.println("2) Toon high scores");
 			System.out.println("3) Exit");
 
-			Scanner input = new Scanner(System.in);
-			int option = input.nextInt();
+			try {
+				int option = Console.getInt();
 
-			switch (option) {
-			case 1:
-				DomainController.startGame();
-				break;
-			case 2:
-				// toon high scores
-				System.out.println("High scores");
-				break;
-			case 3:
-				isRunning = false;
-				break;
-			default:
-				System.out.println("Geef 1, 2 of 3 in ");
-				break;
+				switch (option) {
+					case 1:
+						DomainController.startGame();
+						break;
+					case 2:
+						// toon high scores
+						System.out.println("High scores");
+						break;
+					case 3:
+						isRunning = false;
+						break;
+					default:
+						System.out.println("Geef 1, 2 of 3 in ");
+						break;
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("Geef een getal in!");
 			}
 		}
+
+		Console.close();
 	}
 }
