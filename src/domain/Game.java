@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
@@ -9,12 +10,14 @@ public class Game {
 	private List<Player> players = new ArrayList<>();
 	private List<Card> deck = new ArrayList<>();
 	private int currentRound = 1;
+	private String currentPlayer;
+	private int amountOfPlayers;
 
 	public void start() {
 		System.out.println("Aantal spelers (4 of 5): ");
 		Scanner input = new Scanner(System.in);
 
-		int amountOfPlayers;
+		//int amountOfPlayers;
 
 		do {
 			amountOfPlayers = input.nextInt();
@@ -24,11 +27,11 @@ public class Game {
 			}
 		} while (amountOfPlayers < 4 || amountOfPlayers > 5);
 
-		enterPlayerNames(amountOfPlayers);
+		enterPlayerNames(amountOfPlayers);		
 		createCards();
 		startGame();
 	}
-
+	
 	private void createCards() {
 		for (int colorIndex = 0; colorIndex < Color.AMOUNT; colorIndex++) {
 			for (int cardIndex = 0; cardIndex < 9; cardIndex++) {
@@ -80,6 +83,33 @@ public class Game {
 			Scanner input = new Scanner(System.in);
 			String name = input.nextLine();
 			players.add(new Player(name));
+		}
+	}
+	
+	//method add currentPlayer to Game
+	private void currentPlayer(String currentPlayer) {
+		int amountOfPlayers = 0;
+		switch (amountOfPlayers) {
+		case 1: amountOfPlayers = 4;
+		Random order1 = new Random();
+		List<String> usedPlayers4 = Arrays.asList("Player 1", "Player 2", "Player 3", "Player 4");
+		
+		for (int p = 0; p < amountOfPlayers; p++) {
+			int randomIndex = order1.nextInt(usedPlayers4.size());
+			String randomPlayer = usedPlayers4.get(randomIndex);
+		}
+		System.out.println("De huidige speler is: " + currentPlayer);
+			break;
+		case 2: amountOfPlayers = 5;
+		Random order2 = new Random();
+		List<String> usedPlayers5 = Arrays.asList("Player 1", "Player 2", "Player 3", "Player 4", "Player 5");
+				
+		for (int p = 0; p < amountOfPlayers; p++) {
+			int randomIndex = order2.nextInt(usedPlayers5.size());
+			String randomPlayer = usedPlayers5.get(randomIndex);
+		}
+		System.out.println("De huidige speler is: " + currentPlayer);
+			break;
 		}
 	}
 
