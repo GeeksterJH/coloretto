@@ -9,15 +9,14 @@ import java.util.Random;
 public class Game {
 	private List<Player> players = new ArrayList<>();
 	private List<Card> deck = new ArrayList<>();
+	private int currentPlayerIndex = 0;
 	private int currentRound = 1;
-	private String currentPlayer;
-	private int amountOfPlayers;
 
 	public void start() {
 		System.out.println("Aantal spelers (4 of 5): ");
 		Scanner input = new Scanner(System.in);
 
-		//int amountOfPlayers;
+		int amountOfPlayers;
 
 		do {
 			amountOfPlayers = input.nextInt();
@@ -86,32 +85,20 @@ public class Game {
 		}
 	}
 	
-	//method add currentPlayer to Game
-	private void currentPlayer(String currentPlayer) {
-		int amountOfPlayers = 0;
-		switch (amountOfPlayers) {
-		case 1: amountOfPlayers = 4;
-		Random order1 = new Random();
-		List<String> usedPlayers4 = Arrays.asList("Player 1", "Player 2", "Player 3", "Player 4");
-		
-		for (int p = 0; p < amountOfPlayers; p++) {
-			int randomIndex = order1.nextInt(usedPlayers4.size());
-			String randomPlayer = usedPlayers4.get(randomIndex);
-		}
-		System.out.println("De huidige speler is: " + currentPlayer);
-			break;
-		case 2: amountOfPlayers = 5;
-		Random order2 = new Random();
-		List<String> usedPlayers5 = Arrays.asList("Player 1", "Player 2", "Player 3", "Player 4", "Player 5");
-				
-		for (int p = 0; p < amountOfPlayers; p++) {
-			int randomIndex = order2.nextInt(usedPlayers5.size());
-			String randomPlayer = usedPlayers5.get(randomIndex);
-		}
-		System.out.println("De huidige speler is: " + currentPlayer);
-			break;
-		}
-	}
+	//nextTurn methode
+	private void nextTurn() {
+		for (int i = 0; currentPlayerIndex <= players.size(); i++) {
+			//makeMove is nog te implementeren
+			Player.makeMove();
+			currentPlayerIndex++;
+				if (players.size() < currentPlayerIndex) {
+					currentRound++;
+					currentPlayerIndex = 0;
+				}
+				else
+					break;
+			}
+	}	
 
 	private void startGame() {
 		boolean isGameOver = false;
