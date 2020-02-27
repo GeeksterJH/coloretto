@@ -73,6 +73,7 @@ public class Player {
 
 		for (Map.Entry<Color, Integer> entry : colorAmounts.entrySet()) {
 			switch (entry.getValue()) {
+				case 0: break;
 				case 1: totalScore += 1; break;
 				case 2: totalScore += 3; break;
 				case 3: totalScore += 6; break;
