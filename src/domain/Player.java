@@ -26,7 +26,7 @@ public class Player {
 		this.cards.addAll(cards);
 	}
 
-	public int getScore() {
+	public Map<Color, Integer> getColorAmounts() {
 		Map<Color, Integer> colorAmounts = new HashMap<>();
 
 		for (Card c : cards) {
@@ -37,6 +37,12 @@ public class Player {
 				colorAmounts.put(c.getColor(), 1);
 			}
 		}
+
+		return colorAmounts;
+	}
+
+	public int getScore() {
+		Map<Color, Integer> colorAmounts = getColorAmounts();
 
 		if (colorAmounts.size() > 3) {
 			int colorsToRemove = colorAmounts.size() - 3;
