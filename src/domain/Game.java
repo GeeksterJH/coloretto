@@ -1,7 +1,6 @@
 package domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 import java.util.Random;
@@ -10,7 +9,6 @@ public class Game {
 	private List<Player> players = new ArrayList<>();
 	private List<Card> deck = new ArrayList<>();
 	private int currentPlayerIndex = 0;
-	private int currentRound = 1;
 
 	public void start() {
 		System.out.println("Aantal spelers (4 of 5): ");
@@ -26,11 +24,11 @@ public class Game {
 			}
 		} while (amountOfPlayers < 4 || amountOfPlayers > 5);
 
-		enterPlayerNames(amountOfPlayers);		
+		enterPlayerNames(amountOfPlayers);
 		createCards();
 		startGame();
 	}
-	
+
 	private void createCards() {
 		for (int colorIndex = 0; colorIndex < Color.AMOUNT; colorIndex++) {
 			for (int cardIndex = 0; cardIndex < 9; cardIndex++) {
@@ -84,27 +82,22 @@ public class Game {
 			players.add(new Player(name));
 		}
 	}
-	
-	//nextTurn methode
+
 	private void nextTurn() {
-		for (int i = 0; currentPlayerIndex <= players.size(); i++) {
-			//makeMove is nog te implementeren
-			Player.makeMove();
-			currentPlayerIndex++;
-				if (players.size() < currentPlayerIndex) {
-					currentRound++;
-					currentPlayerIndex = 0;
-				}
-				else
-					break;
-			}
-	}	
+		currentPlayerIndex = currentPlayerIndex == players.size() - 1 ? 0 : currentPlayerIndex + 1;
+	}
+
+	private Player getCurrentPlayer() {
+		return players.get(currentPlayerIndex);
+	}
 
 	private void startGame() {
 		boolean isGameOver = false;
 
 		while (!isGameOver) {
-
+			// TODO: Let current player make a move
+			// TODO: this.getCurrentPlayer().makeMove();
+			nextTurn();
 		}
 	}
 }
