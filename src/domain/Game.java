@@ -7,7 +7,7 @@ import java.util.Random;
 public class Game {
 	private List<Player> players = new ArrayList<>();
 	private List<Card> deck = new ArrayList<>();
-	private int currentRound = 1;
+	private int currentPlayerIndex = 0;
 
 	public void start() {
 		System.out.println("Aantal spelers (4 of 5): ");
@@ -84,11 +84,21 @@ public class Game {
 		}
 	}
 
+	private void nextTurn() {
+		currentPlayerIndex = currentPlayerIndex == players.size() - 1 ? 0 : currentPlayerIndex + 1;
+	}
+
+	private Player getCurrentPlayer() {
+		return players.get(currentPlayerIndex);
+	}
+
 	private void startGame() {
 		boolean isGameOver = false;
 
 		while (!isGameOver) {
-
+			// TODO: Let current player make a move
+			// TODO: this.getCurrentPlayer().makeMove();
+			nextTurn();
 		}
 	}
 }
