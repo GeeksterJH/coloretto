@@ -1,12 +1,14 @@
 package domain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class Player {
+	public boolean IsActive;
 	private String name;
 	private List<Card> cards = new ArrayList<>();
-	private int Score;
 
 	public Player(String name) {
 		this.name = name;
@@ -20,29 +22,67 @@ public class Player {
 		cards.add(c);
 	}
 	
-	//Give players a row of cards
 	public void giveCardRow(List<Card> cards) {
-		
+		this.cards.addAll(cards);
 	}
-	
-	//Calculate score per player
-	public int calculateScore() {
-		int score = 0;
-		int aantal = 0;
-		Color color;
-		
-		while(!cards.isEmpty()) {
-			color = cards.get(1).getColor();
-			cards.remove(0);
-			aantal++;
-			for(Card card : cards) {
-				if(card.getColor() == color) {
-					cards.remove(card);
-					aantal++;
-				}
+
+	public int getScore() {
+		Map<Color, Integer> colorAmounts = new HashMap<>();
+
+		for (Card c : cards) {
+			if (colorAmounts.containsKey(c.getColor())) {
+				int currentAmount = colorAmounts.get(c.getColor());
+				colorAmounts.put(c.getColor(), currentAmount + 1);
+			} else {
+				colorAmounts.put(c.getColor(), 1);
 			}
-			score += aantal;
 		}
-		return score;
-	}	
+
+		if (colorAmounts.size() > 3) {
+			int colorsToRemove = colorAmounts.size() - 3;
+
+			String colorsText = colorsToRemove == 1 ? "kleur" : "kleuren";
+			System.out.printf("Je hebt meer dan drie kleuren! Kies %d %s om niet mee te tellen:%n", colorsToRemove, colorsText);
+
+			int index = 1;
+
+			for (Map.Entry<Color, Integer> entry : colorAmounts.entrySet()) {
+				System.out.printf("%d) %s - %d%n", index, entry.getKey().toString(), entry.getValue());
+				index++;
+			}
+
+			String[] colors = Console.getString().split(" ");
+			List<Integer> colorIndices = new ArrayList<>(colors.length);
+
+			for (int i = 0; i < colors.length; i++) {
+				colorIndices.add(Integer.parseInt(colors[i]) - 1);
+			}
+
+			int mapIndex = 0;
+
+			for (Map.Entry<Color, Integer> entry : colorAmounts.entrySet()) {
+				if (colorIndices.contains(mapIndex)) {
+					colorAmounts.remove(entry.getKey());
+				}
+
+				mapIndex++;
+			}
+		}
+
+		int totalScore = 0;
+
+		for (Map.Entry<Color, Integer> entry : colorAmounts.entrySet()) {
+			switch (entry.getValue()) {
+				case 0: break;
+				case 1: totalScore += 1; break;
+				case 2: totalScore += 3; break;
+				case 3: totalScore += 6; break;
+				case 4: totalScore += 10; break;
+				case 5: totalScore += 15; break;
+				default: totalScore += 21; break;
+			}
+		}
+
+		return totalScore;
+	}
 }
