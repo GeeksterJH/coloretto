@@ -45,6 +45,9 @@ public class Game {
 		startGame();
 	}
 
+	/**
+	 * Put 9 cards of each color in the deck
+	 */
 	private void createCards() {
 		for (int colorIndex = 0; colorIndex < Color.AMOUNT; colorIndex++) {
 			for (int cardIndex = 0; cardIndex < 9; cardIndex++) {
@@ -57,6 +60,9 @@ public class Game {
 		shuffleDeck();
 	}
 
+	/**
+	 * Give every player one card of a random color.
+	*/
 	private void distributeCards() {
 		// 1. This list contains one card of each color
 		List<Card> colorCards = new ArrayList<>(Color.AMOUNT);
@@ -84,6 +90,10 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Prompt the user for a name for every player.
+	 * @param amount The amount of players
+	 */
 	private void enterPlayerNames(int amount) {
 		for (int i = 0; i < amount; i++) {
 			System.out.printf("Geef de naam van speler %d%n", i + 1);
@@ -92,6 +102,9 @@ public class Game {
 		}
 	}
 
+	/**
+	 * Give the turn to the next player
+	 */
 	private void nextTurn() {
 		currentPlayerIndex = currentPlayerIndex == players.size() - 1 ? 0 : currentPlayerIndex + 1;
 	}
@@ -139,6 +152,9 @@ public class Game {
 		System.out.println("======================");
 	}
 
+	/**
+	 * Let the current player make a move
+	 */
 	private void makeMove() {
 		Player p = getCurrentPlayer();
 		System.out.printf(">> Beurt aan \"%s\" <<%n", p.getName());
@@ -178,6 +194,9 @@ public class Game {
 		} while (option < 1 || option > 2);
 	}
 
+	/**
+	 * Main game loop
+	 */
 	private void startGame() {
 		boolean isGameOver = false;
 

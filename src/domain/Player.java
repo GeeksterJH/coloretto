@@ -26,6 +26,10 @@ public class Player {
 		this.cards.addAll(cards);
 	}
 
+	/**
+	 * Get the amount of cards the player has of every color
+	 * @return A map from Color to Integer
+	 */
 	public Map<Color, Integer> getColorAmounts() {
 		Map<Color, Integer> colorAmounts = new HashMap<>();
 
