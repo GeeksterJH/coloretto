@@ -9,6 +9,8 @@ public class Game {
 	private List<Card> deck = new ArrayList<>();
 	private int currentPlayerIndex = 0;
 
+	private Random rng = new Random();
+
 	public void start() {
 		System.out.println("Aantal spelers (4 of 5): ");
 
@@ -54,8 +56,6 @@ public class Game {
 		}
 
 		// 2. In this loop we give each player a random card from the colorCards list
-		Random rng = new Random();
-
 		for (Player p : players) {
 			int randomColorCardIndex = rng.nextInt(colorCards.size());
 			p.giveCard(colorCards.remove(randomColorCardIndex));
@@ -66,8 +66,6 @@ public class Game {
 	}
 
 	private void shuffleDeck() {
-		Random rng = new Random();
-
 		for (int i = deck.size() - 1; i > 0; i--) {
 			int randomIndex = rng.nextInt(i);
 			Card temp = deck.get(i);
