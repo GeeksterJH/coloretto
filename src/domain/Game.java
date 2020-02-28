@@ -107,6 +107,10 @@ public class Game {
 	 */
 	private void nextTurn() {
 		currentPlayerIndex = currentPlayerIndex == players.size() - 1 ? 0 : currentPlayerIndex + 1;
+
+		if (!getCurrentPlayer().isActive()) {
+			nextTurn();
+		}
 	}
 
 	private Player getCurrentPlayer() {
@@ -185,6 +189,7 @@ public class Game {
 					int rowIndex = Console.getInt() - 1;
 					List<Card> row = rows.remove(rowIndex);
 					p.giveCardRow(row);
+					p.setActive(false);
 					break;
 				}
 				default:

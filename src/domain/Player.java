@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 public class Player {
-	public boolean IsActive;
 	private String name;
+	private boolean active = true;
 	private List<Card> cards = new ArrayList<>();
 
 	public Player(String name) {
@@ -24,6 +24,14 @@ public class Player {
 	
 	public void giveCardRow(List<Card> cards) {
 		this.cards.addAll(cards);
+	}
+
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	/**
