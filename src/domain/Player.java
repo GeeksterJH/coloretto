@@ -53,54 +53,25 @@ public class Player {
 		return colorAmounts;
 	}
 
-	public int getScore() {
+	public Map<Color, Integer> getScorePerColor() {
 		Map<Color, Integer> colorAmounts = getColorAmounts();
 
-		if (colorAmounts.size() > 3) {
-			int colorsToRemove = colorAmounts.size() - 3;
-
-			String colorsText = colorsToRemove == 1 ? "kleur" : "kleuren";
-			System.out.printf("Je hebt meer dan drie kleuren! Kies %d %s om niet mee te tellen:%n", colorsToRemove, colorsText);
-
-			int index = 1;
-
-			for (Map.Entry<Color, Integer> entry : colorAmounts.entrySet()) {
-				System.out.printf("%d) %s - %d%n", index, entry.getKey().toString(), entry.getValue());
-				index++;
-			}
-
-			String[] colors = Console.getString().split(" ");
-			List<Integer> colorIndices = new ArrayList<>(colors.length);
-
-			for (int i = 0; i < colors.length; i++) {
-				colorIndices.add(Integer.parseInt(colors[i]) - 1);
-			}
-
-			int mapIndex = 0;
-
-			for (Map.Entry<Color, Integer> entry : colorAmounts.entrySet()) {
-				if (colorIndices.contains(mapIndex)) {
-					colorAmounts.remove(entry.getKey());
-				}
-
-				mapIndex++;
-			}
-		}
-
-		int totalScore = 0;
-
 		for (Map.Entry<Color, Integer> entry : colorAmounts.entrySet()) {
+			int score = 0;
+
 			switch (entry.getValue()) {
 				case 0: break;
-				case 1: totalScore += 1; break;
-				case 2: totalScore += 3; break;
-				case 3: totalScore += 6; break;
-				case 4: totalScore += 10; break;
-				case 5: totalScore += 15; break;
-				default: totalScore += 21; break;
+				case 1: score += 1; break;
+				case 2: score += 3; break;
+				case 3: score += 6; break;
+				case 4: score += 10; break;
+				case 5: score += 15; break;
+				default: score += 21; break;
 			}
+
+			entry.setValue(score);
 		}
 
-		return totalScore;
+		return colorAmounts;
 	}
 }

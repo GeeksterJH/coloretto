@@ -6,49 +6,42 @@ import java.util.Map;
 import java.util.Random;
 
 public class Game {
-	private static final int MAX_ROWS_AMOUNT = 4;
+	private static final int DECK_SIZE = 90;
+	private static final int ROWS_AMOUNT = 4;
 
-	private List<Player> players = new ArrayList<>();
-	private List<Card> deck = new ArrayList<>();
-	private List<List<Card>> rows = new ArrayList<>(MAX_ROWS_AMOUNT);
+	/**
+	 * All players in the game
+	 */
+	private List<Player> players;
+
+	/**
+	 * All players that are currently active in the game
+	 */
+	private List<Player> activePlayers;
 	private int currentPlayerIndex = 0;
+
+	private List<Card> deck = new ArrayList<>(DECK_SIZE);
+	private List<List<Card>> rows = new ArrayList<>(ROWS_AMOUNT);
 
 	private Random rng = new Random();
 
-	public Game() {
-		for (int i = 0; i < MAX_ROWS_AMOUNT; i++) {
+	public Game(String[] playerNames) {
+		// Set up rows
+		for (int i = 0; i < ROWS_AMOUNT; i++) {
 			rows.add(new ArrayList<>());
 		}
-	}
 
-	public void start() {
-		System.out.println("Aantal spelers (4 of 5): ");
+		// Add players to list
+		players = new ArrayList<>(playerNames.length);
+		activePlayers = new ArrayList<>(playerNames.length);
 
-		int amountOfPlayers;
+		for (int i = 0; i < playerNames.length; i++) {
+			Player player = new Player(playerNames[i]);
+			players.add(player);
+			activePlayers.add(player);
+		}
 
-		do {
-			try {
-				amountOfPlayers = Console.getInt();
-			} catch (NumberFormatException e) {
-				System.out.println("Geef een getal in!");
-				amountOfPlayers = 0;
-				continue;
-			}
-
-			if (amountOfPlayers < 4 || amountOfPlayers > 5) {
-				System.out.println("Kies tussen 4 of 5 spelers.");
-			}
-		} while (amountOfPlayers < 4 || amountOfPlayers > 5);
-
-		enterPlayerNames(amountOfPlayers);
-		createCards();
-		startGame();
-	}
-
-	/**
-	 * Put 9 cards of each color in the deck
-	 */
-	private void createCards() {
+		// Add 9 cards of each color to the deck
 		for (int colorIndex = 0; colorIndex < Color.AMOUNT; colorIndex++) {
 			for (int cardIndex = 0; cardIndex < 9; cardIndex++) {
 				deck.add(new Card(Color.get(colorIndex)));
@@ -57,7 +50,39 @@ public class Game {
 
 		distributeCards();
 
-		shuffleDeck();
+		// Shuffle the deck
+		for (int i = deck.size() - 1; i > 0; i--) {
+			int randomIndex = rng.nextInt(i);
+			Card temp = deck.get(i);
+			deck.set(i, deck.get(randomIndex));
+			deck.set(randomIndex, temp);
+		}
+	}
+
+	public void nextTurn() {
+		currentPlayerIndex =
+			(currentPlayerIndex >= activePlayers.size() - 1)
+			? 0
+			: currentPlayerIndex + 1;
+	}
+
+	public Player getCurrentPlayer() {
+		return activePlayers.get(currentPlayerIndex);
+	}
+
+	public Card getTopCard() {
+		return deck.get(0);
+	}
+
+	public void moveTopCardToRow(int rowIndex) {
+		Card card = deck.remove(0);
+		rows.get(rowIndex).add(card);
+	}
+
+	public void giveRowToPlayer(int rowIndex) {
+		List<Card> row = rows.remove(rowIndex);
+		getCurrentPlayer().giveCardRow(row);
+		activePlayers.remove(getCurrentPlayer());
 	}
 
 	/**
@@ -81,135 +106,53 @@ public class Game {
 		deck.addAll(colorCards);
 	}
 
-	private void shuffleDeck() {
-		for (int i = deck.size() - 1; i > 0; i--) {
-			int randomIndex = rng.nextInt(i);
-			Card temp = deck.get(i);
-			deck.set(i, deck.get(randomIndex));
-			deck.set(randomIndex, temp);
-		}
-	}
+	@Override
+	public String toString() {
+		StringBuilder builder = new StringBuilder();
 
-	/**
-	 * Prompt the user for a name for every player.
-	 * @param amount The amount of players
-	 */
-	private void enterPlayerNames(int amount) {
-		for (int i = 0; i < amount; i++) {
-			System.out.printf("Geef de naam van speler %d%n", i + 1);
-			String name = Console.getString();
-			players.add(new Player(name));
-		}
-	}
+		builder.append("===== Spelstatus =====\n");
 
-	/**
-	 * Give the turn to the next player
-	 */
-	private void nextTurn() {
-		currentPlayerIndex = currentPlayerIndex == players.size() - 1 ? 0 : currentPlayerIndex + 1;
-
-		if (!getCurrentPlayer().isActive()) {
-			nextTurn();
-		}
-	}
-
-	private Player getCurrentPlayer() {
-		return players.get(currentPlayerIndex);
-	}
-
-	private void printState() {
-		System.out.println("===== Spelstatus =====");
-
-		for (Player p : players) {
-			Map<Color, Integer> colorAmounts = p.getColorAmounts();
-			System.out.printf("%s: ", p.getName());
+		for (Player player : activePlayers) {
+			Map<Color, Integer> colorAmounts = player.getColorAmounts();
+			builder.append(player.getName());
+			builder.append(": ");
 
 			for (Map.Entry<Color, Integer> entry : colorAmounts.entrySet()) {
-				System.out.printf("%s(%d) ", entry.getKey().toString(), entry.getValue());
+				builder.append(entry.getKey().toString());
+				builder.append("(");
+				builder.append(entry.getValue());
+				builder.append(") ");
 			}
 
-			System.out.println();
+			builder.append("\n");
 		}
 
-		System.out.println();
+		builder.append("\n");
 
 		for (int i = 0; i < rows.size(); i++) {
 			List<Card> row = rows.get(i);
 
-			System.out.printf("Rij %d: ", i + 1);
+			builder.append("Rij ");
+			builder.append(i + 1);
+			builder.append(": ");
 
 			if (row.isEmpty()) {
-				System.out.print("/");
+				builder.append("/");
 			} else {
 				for (int cardIndex = 0; cardIndex < row.size(); cardIndex++) {
-					System.out.printf("%s", row.get(cardIndex).getColor().toString());
+					builder.append(row.get(cardIndex).getColor().toString());
 
 					if (cardIndex != row.size() - 1) {
-						System.out.print(" - ");
+						builder.append(" - ");
 					}
 				}
 			}
 
-			System.out.println();
+			builder.append("\n");
 		}
 
-		System.out.println("======================");
-	}
+		builder.append("======================");
 
-	/**
-	 * Let the current player make a move
-	 */
-	private void makeMove() {
-		Player p = getCurrentPlayer();
-		System.out.printf(">> Beurt aan \"%s\" <<%n", p.getName());
-		System.out.println("  1) Trek kaart van dek");
-		System.out.println("  2) Neem rij kaarten");
-		int option = 0;
-
-		do {
-			try {
-				option = Console.getInt();
-			} catch (NumberFormatException e) {
-				System.out.println("!!Geef een getal in!!");
-				option = 0;
-				continue;
-			}
-
-			switch (option) {
-				case 1: {
-					Card card = deck.remove(0);
-					System.out.printf("De getrokken kaart heeft als kleur: %s%n", card.getColor().toString());
-					System.out.println("Op welke rij wil je de kaart leggen?");
-					int row = Console.getInt();
-					rows.get(row - 1).add(card);
-					break;
-				}
-				case 2: {
-					System.out.println("Welke rij wil je nemen?");
-					int rowIndex = Console.getInt() - 1;
-					List<Card> row = rows.remove(rowIndex);
-					p.giveCardRow(row);
-					p.setActive(false);
-					break;
-				}
-				default:
-					System.out.println("!!Geef 1 of 2 in!!");
-					break;
-			}
-		} while (option < 1 || option > 2);
-	}
-
-	/**
-	 * Main game loop
-	 */
-	private void startGame() {
-		boolean isGameOver = false;
-
-		while (!isGameOver) {
-			printState();
-			makeMove();
-			printState();
-			nextTurn();
-		}
+		return builder.toString();
 	}
 }

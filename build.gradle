@@ -13,4 +13,4 @@ run {
 	standardInput = System.in
 }
 
-mainClassName = 'ui.ConsoleApplication'
+mainClassName = 'main.Startup'
