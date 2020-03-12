@@ -19,7 +19,9 @@ public class Game {
 	 */
 	private List<Player> activePlayers;
 	private int currentPlayerIndex = 0;
-
+	private List<Player> amountActivePlayers = activePlayers;
+	
+	 
 	private List<Card> deck = new ArrayList<>(DECK_SIZE);
 	private List<List<Card>> rows = new ArrayList<>(ROWS_AMOUNT);
 
@@ -105,6 +107,7 @@ public class Game {
 		// 3. We put the remaining cards back into the deck
 		deck.addAll(colorCards);
 	}
+	
 
 	@Override
 	public String toString() {
@@ -154,5 +157,15 @@ public class Game {
 		builder.append("======================");
 
 		return builder.toString();
+		}
+		private boolean isGameOver() {
+			return false;
+		}
+		{
+		if  (activePlayers  == amountActivePlayers ) {
+			 boolean isGameOver=true;
+		}
 	}
+	
+
 }
