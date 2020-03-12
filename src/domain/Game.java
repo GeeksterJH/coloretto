@@ -19,7 +19,6 @@ public class Game {
 	 */
 	private List<Player> activePlayers;
 	private int currentPlayerIndex = 0;
-	private List<Player> amountActivePlayers = activePlayers;
 	
 	 
 	private List<Card> deck = new ArrayList<>(DECK_SIZE);
@@ -158,14 +157,16 @@ public class Game {
 
 		return builder.toString();
 		}
-		private boolean isGameOver() {
-			return false;
-		}
+		public boolean isGameOver() 
 		{
-		if  (activePlayers  == amountActivePlayers ) {
-			 boolean isGameOver=true;
+			
+		if (activePlayers.size() >0)  
+			 return true;
+		else return false;
 		}
-	}
+}
+	
+		
 	
 
-}
+
