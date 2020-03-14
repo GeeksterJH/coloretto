@@ -156,17 +156,9 @@ public class Game {
 		builder.append("======================");
 
 		return builder.toString();
-		}
-		public boolean isGameOver() 
-		{
-			
-		if (activePlayers.size() >0)  
-			 return true;
-		else return false;
-		}
+	}
+
+	public boolean isGameOver() {
+		return activePlayers.size() <= 0;
+	}
 }
-	
-		
-	
-
-
