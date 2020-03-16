@@ -114,7 +114,7 @@ public class Game {
 
 		builder.append("===== Spelstatus =====\n");
 
-		for (Player player : activePlayers) {
+		for (Player player : players) {
 			Map<Color, Integer> colorAmounts = player.getColorAmounts();
 			builder.append(player.getName());
 			builder.append(": ");
