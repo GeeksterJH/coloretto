@@ -1,5 +1,8 @@
 package ui;
 
+import java.util.Map;
+
+import domain.Color;
 import domain.DomainController;
 
 public class ConsoleApplication {
@@ -48,9 +51,7 @@ public class ConsoleApplication {
 
 		DomainController.startNewGame(playerNames);
 
-		boolean isGameOver = false;
-
-		while (!isGameOver) {
+		while (!DomainController.isGameOver()) {
 			System.out.println(DomainController.getGameState());
 
 			System.out.println("1: draw card | 2: take row");
@@ -74,6 +75,22 @@ public class ConsoleApplication {
 
 			DomainController.nextTurn();
 		}
+
+		endGame();
+	}
+
+	private static void endGame() {
+		Map<String, Map<Color, Integer>> scores = DomainController.getPlayerScoresPerColor();
+
+		for (Map.Entry<String, Map<Color, Integer>> player : scores.entrySet()) {
+			System.out.printf("%s:%n", player.getValue());
+
+			for (Map.Entry<Color, Integer> score : player.getValue().entrySet()) {
+				System.out.printf("  - %s: %d%n", score.getKey().toString(), score.getValue());
+			}
+		}
+
+		System.out.println();
 	}
 
 	private static void showHighScores() {

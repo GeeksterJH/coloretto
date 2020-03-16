@@ -86,6 +86,10 @@ public class Game {
 		activePlayers.remove(getCurrentPlayer());
 	}
 
+	public List<Player> getPlayers() {
+		return players;
+	}
+
 	/**
 	 * Give every player one card of a random color.
 	*/
@@ -106,7 +110,6 @@ public class Game {
 		// 3. We put the remaining cards back into the deck
 		deck.addAll(colorCards);
 	}
-	
 
 	@Override
 	public String toString() {
