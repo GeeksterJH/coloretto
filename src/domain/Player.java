@@ -42,11 +42,15 @@ public class Player {
 		Map<Color, Integer> colorAmounts = new HashMap<>();
 
 		for (Card c : cards) {
-			if (colorAmounts.containsKey(c.getColor())) {
-				int currentAmount = colorAmounts.get(c.getColor());
-				colorAmounts.put(c.getColor(), currentAmount + 1);
-			} else {
-				colorAmounts.put(c.getColor(), 1);
+			if (c instanceof ColorCard) {
+				ColorCard card = (ColorCard)c;
+
+				if (colorAmounts.containsKey(card.getColor())) {
+					int currentAmount = colorAmounts.get(card.getColor());
+					colorAmounts.put(card.getColor(), currentAmount + 1);
+				} else {
+					colorAmounts.put(card.getColor(), 1);
+				}
 			}
 		}
 
