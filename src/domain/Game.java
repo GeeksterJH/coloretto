@@ -44,7 +44,7 @@ public class Game {
 		// Add 9 cards of each color to the deck
 		for (int colorIndex = 0; colorIndex < Color.AMOUNT; colorIndex++) {
 			for (int cardIndex = 0; cardIndex < 9; cardIndex++) {
-				deck.add(new Card(Color.get(colorIndex)));
+				deck.add(new ColorCard(Color.get(colorIndex)));
 			}
 		}
 
@@ -140,7 +140,7 @@ public class Game {
 				builder.append("/");
 			} else {
 				for (int cardIndex = 0; cardIndex < row.size(); cardIndex++) {
-					builder.append(row.get(cardIndex).getColor().toString());
+					builder.append(row.get(cardIndex).toString());
 
 					if (cardIndex != row.size() - 1) {
 						builder.append(" - ");

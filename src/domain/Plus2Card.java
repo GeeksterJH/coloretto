@@ -1,13 +1,8 @@
 package domain;
 
 public class Plus2Card extends Card {
-
-	public Plus2Card(Color color) {
-		super(color);
+	@Override
+	public String toString() {
+		return "+2";
 	}
-	
-	public void Plus2() {
-		
-	}
-
 }

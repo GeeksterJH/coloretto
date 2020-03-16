@@ -20,7 +20,7 @@ public class DomainController {
 	}
 
 	public static String getTopCard() {
-		return game.getTopCard().getColor().toString();
+		return game.getTopCard().toString();
 	}
 
 	public static void moveTopCardToRow(int rowIndex) {
