@@ -83,7 +83,7 @@ public class ConsoleApplication {
 		Map<String, Map<Color, Integer>> scores = DomainController.getPlayerScoresPerColor();
 
 		for (Map.Entry<String, Map<Color, Integer>> player : scores.entrySet()) {
-			System.out.printf("%s:%n", player.getValue());
+			System.out.printf("%s:%n", player.getKey());
 
 			for (Map.Entry<Color, Integer> score : player.getValue().entrySet()) {
 				System.out.printf("  - %s: %d%n", score.getKey().toString(), score.getValue());
