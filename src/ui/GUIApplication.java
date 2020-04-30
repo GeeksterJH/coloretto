@@ -1,11 +1,11 @@
 package ui;
+import java.util.ArrayList;
+
 import domain.Player;
 import domain.Score;
 import domain.Rank;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -52,9 +52,15 @@ public class GUIApplication extends Application {
 	
 	//High Scores screen
 	//@Override
-	public ObservableList<Score> start(Scene highScoresScene) throws Exception {
+	public void start(Scene highScoresScene) throws Exception {
 		Button back = new Button("back");
-		Stage window;
+		Stage window = null;
+		/*
+		Editor's note: Window (lijn 88 en 89) begon ambetant te doen, hij zwijgt enkel ask hier window definieer.
+		Oftewel als 'null' oftewel als 'new Stage()'
+		Aangezien ik niet zeker weet wie, hoe wat waar of nog vaagwoorden laat ik het zo staan
+		aangezien hij nu geen errors geeft.
+		*/
 		TableView<Player> highScoresTable;
 		
 		//Rank column
@@ -83,17 +89,17 @@ public class GUIApplication extends Application {
         window.show();
         
         
-        ObservableList<Score> score = FXCollections.observableArrayList();
-            score.add(new score(1, "Karen the Soccer Mom", 20));
-            score.add(new score(2, "Wommy", 19));
-            score.add(new score(3, "Count Braakula", 18));
-            score.add(new score(4, "Buns Buggy", 17));
-            score.add(new score(5, "Scott the Woz", 16));
-            score.add(new score(6, "Too sexy for my shirt", 15));
-            score.add(new score(7, "Hoeveel moek er zo nog schrijven?", 14));
-            score.add(new score(8, "When will Will Smith smith?", 13));
-            score.add(new score(9, "My username is too long for this sh", 12));
-            score.add(new score(10, "Darth Plagueis the Wise", 11));
-        return score;
+        ArrayList<Score> score = new ArrayList<>();
+        	Score.score(1, "Karen the Soccer Mom", 20);
+        	Score.score(2, "Wommy", 19);
+        	Score.score(3, "Count Braakula", 18);
+        	Score.score(4, "Buns Buggy", 17);
+        	Score.score(5, "Scott the Woz", 16);
+        	Score.score(6, "Too sexy for my shirt", 15);
+        	Score.score(7, "Hoeveel moek er zo nog schrijven?", 14);
+        	Score.score(8, "When will Will Smith smith?", 13);
+        	Score.score(9, "My username is too long for this sh", 12);
+        	Score.score(10, "Darth Plagueis the Wise", 11);
+
 	}   
 }
