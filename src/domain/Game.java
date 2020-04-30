@@ -19,8 +19,7 @@ public class Game {
 	 */
 	private List<Player> activePlayers;
 	private int currentPlayerIndex = 0;
-	
-	 
+
 	private List<Card> deck = new ArrayList<>(DECK_SIZE);
 	private List<List<Card>> rows = new ArrayList<>(ROWS_AMOUNT);
 
@@ -73,6 +72,10 @@ public class Game {
 
 	public Card getTopCard() {
 		return deck.get(0);
+	}
+
+	public List<List<Card>> getRows() {
+		return rows;
 	}
 
 	public void moveTopCardToRow(int rowIndex) {
