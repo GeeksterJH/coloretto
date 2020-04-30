@@ -1,5 +1,7 @@
 package ui;
 import domain.Player;
+import domain.Score;
+import domain.Rank;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
@@ -50,10 +52,9 @@ public class GUIApplication extends Application {
 	
 	//High Scores screen
 	//@Override
-	public void start(Scene highScoresScene) throws Exception {
+	public ObservableList<Score> start(Scene highScoresScene) throws Exception {
 		Button back = new Button("back");
 		Stage window;
-		int rank = 0;
 		TableView<Player> highScoresTable;
 		
 		//Rank column
@@ -72,7 +73,7 @@ public class GUIApplication extends Application {
 		scoreColumn.setCellValueFactory(new PropertyValueFactory<>("Score"));
 		
 		highScoresTable = new TableView<>();
-		highScoresTable.getColumns().addAll(rankColumn, playerColumn, scoreColumn);
+		highScoresTable.getColumns();
 
         VBox vBox = new VBox();
         vBox.getChildren().addAll(highScoresTable);
@@ -81,8 +82,8 @@ public class GUIApplication extends Application {
         window.setScene(scene);
         window.show();
         
-        public ObservableList<score> getScore() {
-        	ObservableList<score> score = FXCollections.observableArrayList();
+        
+        ObservableList<Score> score = FXCollections.observableArrayList();
             score.add(new score(1, "Karen the Soccer Mom", 20));
             score.add(new score(2, "Wommy", 19));
             score.add(new score(3, "Count Braakula", 18));
@@ -93,8 +94,6 @@ public class GUIApplication extends Application {
             score.add(new score(8, "When will Will Smith smith?", 13));
             score.add(new score(9, "My username is too long for this sh", 12));
             score.add(new score(10, "Darth Plagueis the Wise", 11));
-            return score;
-    }
-	}
-	/**/
+        return score;
+	}   
 }
