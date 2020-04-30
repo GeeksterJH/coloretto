@@ -1,15 +1,22 @@
 package main;
 
+import java.awt.Button;
+import java.awt.event.ActionEvent;
 import javafx.application.Application;
-import ui.ConsoleApplication;
+import javafx.event.EventHandler;
+import javafx.scene.Scene;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+import javafx.scene.control.Label;
 import ui.GUIApplication;
+
+
 
 class Startup {
 	public static void main(String[] args) {
 		//ConsoleApplication.start();
 		Application.launch(GUIApplication.class, args);
 	}
-}
 
 /*
 public class Startup extends Application implements EventHandler<ActionEvent> {
@@ -40,4 +47,10 @@ public class Startup extends Application implements EventHandler<ActionEvent> {
 	public void handle(ActionEvent event) {
 		System.out.println("y e e t");
 	}
-}*/
+	*/
+}
+
+
+
+
+

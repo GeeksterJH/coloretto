@@ -75,7 +75,8 @@ public class Player {
 
 			entry.setValue(score);
 		}
-
+		
 		return colorAmounts;
 	}
+	
 }
