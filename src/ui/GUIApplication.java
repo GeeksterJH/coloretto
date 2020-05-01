@@ -4,6 +4,7 @@ import java.util.List;
 
 import domain.Card;
 import domain.Game;
+import domain.ColorCard;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -90,8 +91,8 @@ public class GUIApplication extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		stage.setTitle("Coloretto");
-		stage.setWidth(1280);
-		stage.setHeight(720);
+		stage.setWidth(1920);
+		stage.setHeight(1080);
 
 		// TODO: Add login and high-scores scene here
 		createGameScene();
@@ -135,6 +136,7 @@ public class GUIApplication extends Application {
 		currentPlayerLabel.setTextFill(Color.WHITE);
 		mainContainer.getChildren().add(currentPlayerLabel);
 
+		// NOTE: Card rows
 		{
 			HBox rowsContainer = new HBox();
 			rowsContainer.setAlignment(Pos.CENTER);
@@ -163,6 +165,31 @@ public class GUIApplication extends Application {
 			}
 
 			mainContainer.getChildren().add(rowsContainer);
+		}
+
+		// NOTE: Deck & players
+		{
+			HBox bottomContainer = new HBox();
+
+			VBox deckContainer = new VBox(20);
+
+			Rectangle topCardRect = new Rectangle(120, 200);
+			topCardRect.setFill(Color.WHITE);
+			deckContainer.getChildren().add(topCardRect);
+
+			Button showTopCardButton = new Button("Show top card");
+			showTopCardButton.setOnAction(e -> {
+				Card c = game.getTopCard();
+
+				if (c instanceof ColorCard) {
+					ColorCard colorCard = (ColorCard)c;
+					topCardRect.setFill(Color.web(colorCard.getColor().toString()));
+				}
+			});
+			deckContainer.getChildren().add(showTopCardButton);
+
+			bottomContainer.getChildren().add(deckContainer);
+			mainContainer.getChildren().add(bottomContainer);
 		}
 
 		gameScene = new Scene(mainContainer);
