@@ -51,16 +51,9 @@ public class GUIApplication extends Application {
 	}
 	
 	//High Scores screen
-	//@Override
-	public void start(Scene highScoresScene) throws Exception {
+	@Override
+	public void setupHighScoresScene() throws Exception {
 		Button back = new Button("back");
-		Stage window = null;
-		/*
-		Editor's note: Window (lijn 88 en 89) begon ambetant te doen, hij zwijgt enkel ask hier window definieer.
-		Oftewel als 'null' oftewel als 'new Stage()'
-		Aangezien ik niet zeker weet wie, hoe wat waar of nog vaagwoorden laat ik het zo staan
-		aangezien hij nu geen errors geeft.
-		*/
 		TableView<Player> highScoresTable;
 		
 		//Rank column
@@ -83,23 +76,19 @@ public class GUIApplication extends Application {
 
         VBox vBox = new VBox();
         vBox.getChildren().addAll(highScoresTable);
-
-        Scene scene = new Scene(vBox);
-        window.setScene(scene);
-        window.show();
-        
         
         ArrayList<Score> score = new ArrayList<>();
-        	Score.score(1, "Karen the Soccer Mom", 20);
-        	Score.score(2, "Wommy", 19);
-        	Score.score(3, "Count Braakula", 18);
-        	Score.score(4, "Buns Buggy", 17);
-        	Score.score(5, "Scott the Woz", 16);
-        	Score.score(6, "Too sexy for my shirt", 15);
-        	Score.score(7, "Hoeveel moek er zo nog schrijven?", 14);
-        	Score.score(8, "When will Will Smith smith?", 13);
-        	Score.score(9, "My username is too long for this sh", 12);
-        	Score.score(10, "Darth Plagueis the Wise", 11);
-
+    	score.add(new Score(1, "Karen the Soccer Mom", 20));
+    	score.add(new Score(2, "Wommy", 19));
+    	score.add(new Score(3, "Count Braakula", 18));
+    	score.add(new Score(4, "Buns Buggy", 17));
+    	score.add(new Score(5, "Scott the Woz", 16));
+    	score.add(new Score(6, "Too sexy for my shirt", 15));
+    	score.add(new Score(7, "Hoeveel moek er zo nog schrijven?", 14));
+    	score.add(new Score(8, "When will Will Smith smith?", 13));
+    	score.add(new Score(9, "My username is too long for this sh", 12));
+    	score.add(new Score(10, "Darth Plagueis the Wise", 11));
+    	
+        highScoresScene = new Scene(vBox);
 	}   
 }

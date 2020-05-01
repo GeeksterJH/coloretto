@@ -1,7 +1,6 @@
 package domain;
 
 public class Score {
-	public static void score(int i, String string, int j) {
-		
+	public Score(int rank, String Player, int score) {
 	}
 }
