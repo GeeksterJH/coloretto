@@ -1,9 +1,19 @@
 package ui;
+import java.util.ArrayList;
+
+import domain.Player;
+import domain.Score;
+import domain.Rank;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -23,7 +33,10 @@ public class GUIApplication extends Application {
 		layout1.getChildren().add(gotoGameScene);
 		
 		Button gotoHighScoresScene = new Button("Go to high scores");
-		gotoHighScoresScene.setOnAction(e -> stage.setScene(highScoresScene));
+		gotoHighScoresScene.setOnAction(e -> {
+			setupHighScoresScene(stage);
+			stage.setScene(highScoresScene);
+		});
 		VBox layout2 = new VBox(20);
 		layout2.getChildren().add(new Label("Welcome to the game scene"));
 		layout2.getChildren().add(gotoHighScoresScene);
@@ -41,4 +54,44 @@ public class GUIApplication extends Application {
 		stage.setScene(loginScene);
 		stage.show();
 	}
+	
+	//High Scores screen
+	public void setupHighScoresScene(Stage stage) {
+		
+		ObservableList<Score> score = FXCollections.observableArrayList();
+    	score.add(new Score(1, "Karen the Soccer Mom", 20));
+    	score.add(new Score(2, "Wommy", 19));
+    	score.add(new Score(3, "Count Braakula", 18));
+    	score.add(new Score(4, "Buns Buggy", 17));
+    	score.add(new Score(5, "Scott the Woz", 16));
+    	score.add(new Score(6, "Too sexy for my shirt", 15));
+    	score.add(new Score(7, "Hoeveel moek er zo nog schrijven?", 14));
+    	score.add(new Score(8, "When will Will Smith smith?", 13));
+    	score.add(new Score(9, "My username is too long for this sh", 12));
+    	score.add(new Score(10, "Darth Plagueis the Wise", 11));
+		
+        TableColumn rankCol = new TableColumn("Rank");
+        TableColumn playerCol = new TableColumn("Player");
+        TableColumn scoreCol = new TableColumn("Score");
+        
+        rankCol.setMinWidth(200);
+        rankCol.setCellValueFactory(
+                new PropertyValueFactory<Score, Integer>("rank"));
+        playerCol.setMinWidth(200);
+        playerCol.setCellValueFactory(
+                new PropertyValueFactory<Score, String>("player"));
+        scoreCol.setMinWidth(200);
+        scoreCol.setCellValueFactory(
+                new PropertyValueFactory<Score, Integer>("score"));
+		
+		TableView highScoresTable = new TableView<>();
+		highScoresTable.setItems(score);
+		highScoresTable.getColumns().addAll(rankCol, playerCol, scoreCol);
+		
+		Button back = new Button("Back");
+		back.setOnAction(e -> stage.setScene(loginScene));
+		VBox vbox = new VBox();
+		vbox.getChildren().addAll(highScoresTable, back);
+        highScoresScene = new Scene(vbox);
+	}   
 }
