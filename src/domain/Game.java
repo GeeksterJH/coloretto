@@ -6,8 +6,8 @@ import java.util.Map;
 import java.util.Random;
 
 public class Game {
-	private static final int DECK_SIZE = 90;
-	private static final int ROWS_AMOUNT = 4;
+	public static final int DECK_SIZE = 90;
+	public static final int ROWS_AMOUNT = 4;
 
 	/**
 	 * All players in the game
@@ -88,9 +88,19 @@ public class Game {
 		getCurrentPlayer().giveCardRow(row);
 		activePlayers.remove(getCurrentPlayer());
 	}
+	
+	public void giveRowToPlayer(List<Card> row) {
+		rows.remove(row);
+		getCurrentPlayer().giveCardRow(row);
+		activePlayers.remove(getCurrentPlayer());
+	}
 
 	public List<Player> getPlayers() {
 		return players;
+	}
+	
+	public List<Player> getActivePlayers() {
+		return activePlayers;
 	}
 
 	/**

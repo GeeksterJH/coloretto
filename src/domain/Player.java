@@ -34,6 +34,10 @@ public class Player {
 		this.active = active;
 	}
 
+	public List<Card> getCards() {
+		return cards;
+	}
+	
 	/**
 	 * Get the amount of cards the player has of every color
 	 * @return A map from Color to Integer
