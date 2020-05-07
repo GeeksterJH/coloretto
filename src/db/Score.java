@@ -33,6 +33,7 @@ public class Score {
 				int score = result.getInt("score");
 				
 				scores.add(new Score(id, name, score));
+				counter--;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
