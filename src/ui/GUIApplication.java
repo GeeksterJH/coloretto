@@ -1,14 +1,23 @@
 package ui;
 
+
+
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class GUIApplication extends Application {
 	private Scene loginScene, gameScene, highScoresScene;
+    public static final Color BACKGROUND_COLOR = Color.web("#677C88");
+    public static final Background BACKGROUND = new Background(new BackgroundFill(BACKGROUND_COLOR, new CornerRadii(0), new Insets(0, 0, 0, 0)));
 	
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -34,6 +43,19 @@ public class GUIApplication extends Application {
 		layout3.getChildren().add(new Label("Welcome to the high scores scene"));
 		layout3.getChildren().add(back);
 		
+		Button playgame = new Button("play game");
+		playgame.setOnAction(e -> stage.setScene(gameScene));
+		layout2.getChildren().add(playgame);
+		
+		Button highscoresscene  = new Button("Show High Scores");
+		gotoHighScoresScene.setOnAction(e -> stage.setScene(gameScene));
+		layout2.getChildren().add(highscoresscene);
+		
+		Button exitgame  = new Button("Exit");
+		exitgame.setOnAction(e -> System.exit(0));
+		layout2.getChildren().add(exitgame);
+		
+		layout1.setBackground(BACKGROUND);
 		loginScene = new Scene(layout1);
 		gameScene = new Scene(layout2);
 		highScoresScene = new Scene(layout3);
